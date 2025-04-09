@@ -16,7 +16,7 @@ test('Test 2: Verify user can view product details', async ({ page }) => {
   await page.goto('https://practicesoftwaretesting.com/');
   await page.locator(productCardByName, { hasText: 'Combination Pliers' }).click();
   await expect(page).toHaveURL(/^https:\/\/practicesoftwaretesting\.com\/product.*/);
-  await expect(page.locator('[data-test="product-title"]')).toContainText('Combination Pliers');
+  await expect(page.locator('[data-test="product-name"]')).toContainText('Combination Pliers');
   await expect(page.locator('[data-test="unit-price"]')).toContainText('14.15');
   await expect(page.locator('[data-test="add-to-cart"]')).toBeVisible();
   await expect(page.locator('[data-test="add-to-favorites"]')).toBeVisible();
