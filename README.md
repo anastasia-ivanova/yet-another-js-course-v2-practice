@@ -6,8 +6,8 @@ This project contains automated end-to-end tests for the test application using 
 
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
-- Node.js (version X.X.X or higher)
-- npm (version X.X.X or higher)
+- Node.js (v16+ recommended)
+- npm (version 8.0 or higher)
 - Playwright
   - to install Playwright use:
   ```bash
@@ -15,6 +15,15 @@ Before you begin, ensure you have met the following requirements:
 
 
 ## Running Tests
-To run the automated tests, use the following command:
-```bash
-npx playwright test
+Install dependencies: 
+  ```bash
+   npm install
+   ```
+Run all tests:
+   ```bash
+ npx playwright test
+ ```
+View the HTML report (after test run): 
+   ```bash
+npx playwright show-report
+```

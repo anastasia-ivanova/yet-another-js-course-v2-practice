@@ -3,17 +3,17 @@ import { test, expect } from '@playwright/test';
 const productCardByName = 'h5[data-test="product-name"]';
 
 test('Test 1: Verify login with valid credentials', async ({ page }) => {
-  await page.goto(process.env.WEB_URL + '/auth/login');
+  await page.goto('/auth/login');
   await page.locator('[data-test="email"]').fill( process.env.USER_EMAIL);
   await page.locator('[data-test="password"]').fill(process.env.USER_PASSWORD);
   await page.locator('[data-test="login-submit"]').click();
-  await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
+  await expect(page).toHaveURL('/account');
   await expect(page.locator('[data-test="page-title"]')).toContainText('My account');
   await expect(page.locator('[data-test="nav-menu"]')).toContainText('Jane Doe');
 });
 
 test('Test 2: Verify user can view product details', async ({ page }) => {
-  await page.goto('https://practicesoftwaretesting.com/');
+  await page.goto('/');
   await page.locator(productCardByName, { hasText: 'Combination Pliers' }).click();
   await expect(page).toHaveURL(/^https:\/\/practicesoftwaretesting\.com\/product.*/);
   await expect(page.locator('[data-test="product-name"]')).toContainText('Combination Pliers');
@@ -22,8 +22,8 @@ test('Test 2: Verify user can view product details', async ({ page }) => {
   await expect(page.locator('[data-test="add-to-favorites"]')).toBeVisible();
 });
 
-test('test', async ({ page }) => {
-  await page.goto('https://practicesoftwaretesting.com/');
+test('Test 3: Verify user can add product to cart', async ({ page }) => {
+  await page.goto('/');
   //Click on the product "Slip Joint Pliers"
   await page.locator(productCardByName, { hasText: 'Slip Joint Pliers' }).click();
   //Verify URL contains https://practicesoftwaretesting.com/product.
@@ -45,7 +45,7 @@ test('test', async ({ page }) => {
   //Click on the cart icon in the navigation.
   await page.locator('[data-test="nav-cart"]').click();
   //Verify URL is https://practicesoftwaretesting.com/checkout.
-  await expect(page).toHaveURL('https://practicesoftwaretesting.com/checkout');
+  await expect(page).toHaveURL(process.env.WEB_URL + '/checkout');
   await expect(page.locator('[data-test="product-quantity"]')).toBeVisible();
   //Verify the number of products in the cart table equals 1.
   await expect(page.locator('[data-test="product-quantity"]')).toHaveValue('1');
