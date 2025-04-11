@@ -1,0 +1,25 @@
+{
+  "name": "yet-another-js-course-v2-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anastasia-ivanova/yet-another-js-course-v2-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anastasia-ivanova/yet-another-js-course-v2-practice/issues"
+  },
+  "homepage": "https://github.com/anastasia-ivanova/yet-another-js-course-v2-practice#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
+}
