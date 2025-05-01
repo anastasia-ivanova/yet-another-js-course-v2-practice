@@ -33,13 +33,15 @@ export enum OtherTools {
 }
 
 export  class SideBar {
-    page: Page;
-    sortDropdownLocator: Locator;
-    filterCheckBoxByName: string;
+    readonly page: Page;
+    private readonly root: Locator;
+    readonly sortDropdownLocator: Locator;
+    readonly filterCheckBoxByName: string;
 
     constructor(page: Page) {
         this.page = page;
-        this.sortDropdownLocator = this.page.locator('[data-test="sort"]');
+        this.root = this.page.getByTestId('filters');
+        this.sortDropdownLocator = this.root.getByTestId('sort');
         this.filterCheckBoxByName = 'name="category_id"';
     };
 
@@ -48,7 +50,7 @@ export  class SideBar {
     }
 
     async applyPowerToolsFilter(filterOption: PowerTools){
-        await this.page.getByRole('checkbox', { name: /Sander/i }).check();
+        await this.root.getByRole('checkbox', { name: filterOption }).check();
     }
 
 

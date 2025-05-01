@@ -8,9 +8,9 @@ export  class CheckoutPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.productQuantityLocator = this.page.locator('[data-test="product-quantity"]');
-        this.productTitleInCartLocator = this.page.locator('[data-test="product-title"]');
-        this.proceedButtonLocator = this.page.locator('[data-test="proceed-1"]');
+        this.productQuantityLocator = this.page.getByTestId('product-quantity');
+        this.productTitleInCartLocator = this.page.getByTestId('product-title');
+        this.proceedButtonLocator = this.page.getByTestId('proceed-1');
     }
 
 

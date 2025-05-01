@@ -1,9 +1,6 @@
 import { test, expect } from '@playwright/test';
-import {LoginPage} from "../pages/loginPage";
-import {HomePage} from "../pages/homePage";
-import {ProductPage} from "../pages/productPage";
-import {CheckoutPage} from "../pages/checkoutPage";
-import {PowerTools, SideBar, SortingOption} from "../pages/sideBar";
+import {HomePage} from "../pages/home-page/homePage";
+import {PowerTools, SideBar, SortingOption} from "../pages/home-page/fragments/sideBar";
 
 const sortingCasesName = [
     {

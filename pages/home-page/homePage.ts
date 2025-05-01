@@ -1,4 +1,4 @@
-import {expect, Locator, Page} from "@playwright/test";
+import {Page} from "@playwright/test";
 
 export  class HomePage{
     page: Page;
@@ -19,7 +19,7 @@ export  class HomePage{
 
     async getAllProductCleanPrices(): Promise<number[]> {
         const cleanPrices: number[] = [];
-        for (const price of await this.page.locator('data-test="product-price"').allTextContents()) {
+        for (const price of await this.page.getByTestId('product-price').allTextContents()) {
             if (price) {
                 const cleanPrice = parseFloat(price.replace(/[^0-9.]/g, ''));
                             cleanPrices.push(cleanPrice);

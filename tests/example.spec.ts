@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 import {LoginPage} from "../pages/loginPage";
-import {HomePage} from "../pages/homePage";
+import {HomePage} from "../pages/home-page/homePage";
 import {ProductPage} from "../pages/productPage";
 import {CheckoutPage} from "../pages/checkoutPage";
-import {SideBar, SortingOption} from "../pages/sideBar";
+import {baseConfig} from "../config/baseConfig";
 
 
 
@@ -11,10 +11,10 @@ test('Test 1: Verify login with valid credentials', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await page.goto('/auth/login');
-  await loginPage.login(process.env.USER_EMAIL, process.env.USER_PASSWORD);
+  await loginPage.login(baseConfig.USER_EMAIL, baseConfig.USER_PASSWORD);
   await expect(page).toHaveURL('/account');
   await expect(page.locator('[data-test="page-title"]')).toContainText('My account');
-  await expect(page.locator('[data-test="nav-menu"]')).toContainText(process.env.USER_NAME);
+  await expect(page.locator('[data-test="nav-menu"]')).toContainText(baseConfig.USER_NAME);
 });
 
 test('Test 2: Verify user can view product details', async ({ page }) => {
