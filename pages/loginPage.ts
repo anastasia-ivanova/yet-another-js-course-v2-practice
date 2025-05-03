@@ -1,4 +1,5 @@
 import {Locator, Page} from "@playwright/test";
+import { baseConfig } from '../config/baseConfig';
 
 export  class LoginPage{
     page: Page;
@@ -16,5 +17,11 @@ export  class LoginPage{
          await this.emailLocator.fill(username);
          await this.passwordFieldLocator.fill(password);
          await this.submitButtonLocator.click();
+     }
+
+     async loginWithUser(): Promise<void>{
+        await this.emailLocator.fill(baseConfig.USER_EMAIL);
+        await this.passwordFieldLocator.fill(baseConfig.USER_PASSWORD);
+        await this.submitButtonLocator.click();
      }
  }

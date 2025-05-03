@@ -1,6 +1,6 @@
-import { test, expect } from '@playwright/test';
-import {HomePage} from "../pages/home-page/homePage";
-import {PowerTools, SideBar, SortingOption} from "../pages/home-page/fragments/sideBar";
+import { expect } from '@playwright/test';
+import {test} from '../fixtures/allAppFixture';
+import { PowerTools, SortingOption } from '../pages/home-page/fragments/sideBar';
 
 const sortingCasesName = [
     {
@@ -17,9 +17,7 @@ const sortingCasesName = [
 
 
 for (const { option, description, sortFn } of sortingCasesName) {
-    test(`Test  1 & 2: Verify user can perform sorting by name ${description}`, async ({ page }) => {
-        const homePage = new HomePage(page);
-        const sideBar = new SideBar(page);
+    test(`Test  1 & 2: Verify user can perform sorting by name ${description}`, async ({ page, homePage,sideBar }) => {
         await page.goto('/');
 
         await sideBar.selectSortingOption(option);
@@ -47,9 +45,7 @@ const sortingCasesPrice = [
 
 
 for (const { option, description, sortFn } of sortingCasesPrice) {
-    test(`Test 3 & 4: Verify user can perform sorting by price ${description}`, async ({ page }) => {
-        const homePage = new HomePage(page);
-        const sideBar = new SideBar(page);
+    test(`Test 3 & 4: Verify user can perform sorting by price ${description}`, async ({  page, homePage,sideBar }) => {
         await page.goto('/');
 
         await sideBar.selectSortingOption(option);
@@ -62,10 +58,8 @@ for (const { option, description, sortFn } of sortingCasesPrice) {
     });
 }
 
-test('Test 5: Verify user can filter products by category', async ({ page }) => {
-    const homePage = new HomePage(page);
-    const sideBar = new SideBar(page);
-    const filter = PowerTools.Sander;
+test('Test 5: Verify user can filter products by category', async ({ page, homePage, sideBar }) => {
+    const filter: PowerTools = PowerTools.Sander;
 
 
     await page.goto('/');

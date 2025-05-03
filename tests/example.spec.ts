@@ -1,26 +1,18 @@
-import { test, expect } from '@playwright/test';
-import {LoginPage} from "../pages/loginPage";
-import {HomePage} from "../pages/home-page/homePage";
-import {ProductPage} from "../pages/productPage";
-import {CheckoutPage} from "../pages/checkoutPage";
-import {baseConfig} from "../config/baseConfig";
+import { expect } from '@playwright/test';
+import { myLoggedInTest } from '../fixtures/loggedinFixture';
+import {test} from '../fixtures/allAppFixture';
+import { baseConfig } from '../config/baseConfig';
 
 
 
-test('Test 1: Verify login with valid credentials', async ({ page }) => {
-  const loginPage = new LoginPage(page);
+myLoggedInTest('Test 1: Verify login with valid credentials', async ({ loggedInPage }) => {
 
-  await page.goto('/auth/login');
-  await loginPage.login(baseConfig.USER_EMAIL, baseConfig.USER_PASSWORD);
-  await expect(page).toHaveURL('/account');
-  await expect(page.locator('[data-test="page-title"]')).toContainText('My account');
-  await expect(page.locator('[data-test="nav-menu"]')).toContainText(baseConfig.USER_NAME);
+  await expect(loggedInPage).toHaveURL('/account');
+  await expect(loggedInPage.locator('[data-test="page-title"]')).toContainText('My account');
+  await expect(loggedInPage.locator('[data-test="nav-menu"]')).toContainText(baseConfig.USER_NAME);
 });
 
-test('Test 2: Verify user can view product details', async ({ page }) => {
-  const homePage = new HomePage(page);
-  const productPage = new ProductPage(page);
-
+test('Test 2: Verify user can view product details', async ({page, homePage, productPage }) => {
   const productInTest = 'Combination Pliers';
 
   await page.goto('/');
@@ -32,11 +24,7 @@ test('Test 2: Verify user can view product details', async ({ page }) => {
   await expect(productPage.addToFavButtonLocator).toBeVisible();
 });
 
-test('Test 3: Verify user can add product to cart', async ({ page }) => {
-  const homePage = new HomePage(page);
-  const productPage = new ProductPage(page);
-  const checkoutPage = new CheckoutPage(page);
-
+test('Test 3: Verify user can add product to cart', async ({ page, homePage, productPage, checkoutPage }) => {
   const testProduct = 'Slip Joint Pliers';
 
 
