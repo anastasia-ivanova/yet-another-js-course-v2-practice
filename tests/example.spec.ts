@@ -15,11 +15,14 @@ myLoggedInTest('Test 1: Verify login with valid credentials', async ({ loggedInP
 test('Test 2: Verify user can view product details', async ({page, homePage, productPage }) => {
   const productInTest = 'Combination Pliers';
 
-  await page.goto('/');
+  await homePage.goto();
   await homePage.clickProductCardByName(productInTest);
-  await expect(page).toHaveURL(/^https:\/\/practicesoftwaretesting\.com\/product.*/);
-  await expect(productPage.productNameLabel).toContainText(productInTest);
-  await expect(productPage.unitPriceLocator).toContainText('14.15');
+
+  await expect(page).toHaveURL(/\/product.*/);
+
+  expect(await productPage.getProductName()).toContain(productInTest);
+  expect(await productPage.getProductPrice()).toContain('14.15');
+
   await expect(productPage.addToCartButtonLocator).toBeVisible();
   await expect(productPage.addToFavButtonLocator).toBeVisible();
 });
@@ -27,16 +30,15 @@ test('Test 2: Verify user can view product details', async ({page, homePage, pro
 test('Test 3: Verify user can add product to cart', async ({ page, homePage, productPage, checkoutPage }) => {
   const testProduct = 'Slip Joint Pliers';
 
-
   await page.goto('/');
   //Click on the product "Slip Joint Pliers"
   await homePage.clickProductCardByName(testProduct)
   //Verify URL contains https://practicesoftwaretesting.com/product.
-  await expect(page).toHaveURL(/^https:\/\/practicesoftwaretesting\.com\/product.*/);
+  await expect(page).toHaveURL(/\/product.*/);
   //Verify product name is "Slip Joint Pliers".
-  await expect(productPage.productNameLabel).toContainText(testProduct);
+  expect(await productPage.getProductName()).toContain(testProduct);
   // Verify product price is 9.17.
-  await expect(productPage.unitPriceLocator ).toContainText('9.17');
+  expect(await productPage.getProductPrice()).toContain('9.17');
   //Click "Add to Cart" button.
   await productPage.clickAddToCart();
   //Verify alert message is visible

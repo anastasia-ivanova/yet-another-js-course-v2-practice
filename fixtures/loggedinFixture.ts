@@ -9,6 +9,7 @@ export const myLoggedInTest = test.extend({
         await page.getByTestId('email').fill(baseConfig.USER_EMAIL);
         await page.getByTestId('password').fill(baseConfig.USER_PASSWORD);
         await page.getByTestId('login-submit').click();
+        await page.getByTestId('page-title').waitFor({ state: 'visible' });
         await use(page); 
     }
 });

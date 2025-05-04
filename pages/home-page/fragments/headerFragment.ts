@@ -1,0 +1,16 @@
+import {baseFragment} from "../../baseFragment";
+
+export class HeaderFragment  extends baseFragment {
+    readonly signIn = this.page.getByTestId('nav-sign-in')
+    readonly logo = this.page.locator('a[title="Practice Software Testing - Toolshop"]');
+
+    async selectSignInMenu(): Promise<void> {
+        await this.signIn.click();
+    }
+
+    async clickMainLogo(): Promise<void> {
+        await this.logo.click();
+        await this.page.locator('p.lead').waitFor({ state: 'visible' });
+
+    }
+}

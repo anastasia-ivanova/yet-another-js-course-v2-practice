@@ -1,24 +1,22 @@
-import {Locator, Page} from "@playwright/test";
+import {Locator} from "@playwright/test";
+import {BasePage} from "./basePage";
 
-export  class ProductPage{
-    page: Page;
-    productNameLabel: Locator;
-    unitPriceLocator: Locator;
-    addToCartButtonLocator: Locator;
-    addToFavButtonLocator: Locator;
-    alertLocator: Locator;
-    goToCartButtonLocator: Locator;
+export  class ProductPage extends BasePage{
+
+    productNameLabel: Locator = this.page.getByTestId("product-name");
+    unitPriceLocator: Locator = this.page.getByTestId("unit-price");
+    addToCartButtonLocator: Locator = this.page.getByTestId("add-to-cart");
+    addToFavButtonLocator: Locator = this.page.getByTestId("add-to-favorites");
+    alertLocator: Locator = this.page.getByRole('alert', { name: 'Product added to shopping cart.' });
+    goToCartButtonLocator: Locator = this.page.getByTestId("nav-cart");
 
 
-    constructor(page: Page) {
-        this.page = page;
-        this.productNameLabel = this.page.getByTestId("product-name");
-        this.unitPriceLocator = this.page.getByTestId("unit-price");
-        this.addToCartButtonLocator = this.page.getByTestId("add-to-cart");
-        this.addToFavButtonLocator = this.page.getByTestId("add-to-favorites");
-        this.alertLocator = this.page.getByRole('alert', { name: 'Product added to shopping cart.' });
-        this.goToCartButtonLocator= this.page.getByTestId("nav-cart");
+    async getProductName(): Promise<string>{
+        return  await this.productNameLabel.innerText();
+    }
 
+    async getProductPrice(): Promise<string>{
+        return await this.unitPriceLocator.innerText();
     }
 
     async clickAddToCart() {

@@ -1,27 +1,28 @@
 import { expect } from '@playwright/test';
 import {test} from '../fixtures/allAppFixture';
-import { baseConfig } from '../config/baseConfig';
-import { CheckoutPage, PaymentMethods } from '../pages/checkoutPage';
+import { PaymentMethods } from '../pages/checkout-page/checkoutPage';
 
 
 
-test('Test 1: Verify login with valid credentials', async ({ page, loggedInAppPage, homePage, productPage, checkoutPage}) => {
+test('Unit-13: Test 6: Verify purchasing item with fixtures', async ({ page, loggedInAppPage, homePage, productPage, checkoutPage}) => {
   const creditCardInfo = {
     number: '1111-1111-1111-1111',
     expDate: '08/2025',
     cvv: '111',
     cardholderName: 'test name',
   };
-
   const paymentMethod = PaymentMethods.CreditCard;
 
-  await page.goto('/')
+  await homePage.headerFragment.clickMainLogo();
+  //save first card info
   const productInTest = {
-    productName: await homePage.getProductNameByNumber(0),
+    productName:  await homePage.getProductNameByNumber(0),
     productPrice: await homePage.getProductPriceByNumber(0)
   };
 
   await homePage.clickProductCardByNumber(0);
+
+  productPage.alertLocator.waitFor({ state: 'hidden' });
   await productPage.clickAddToCart();
   await productPage.goToCart();
 
@@ -34,13 +35,13 @@ test('Test 1: Verify login with valid credentials', async ({ page, loggedInAppPa
   await expect(checkoutPage.productPriceInCartLocator).toContainText(productInTest.productPrice);
   await checkoutPage.clickProceedToCheckout();
   //verify if user signed in
-  expect(await checkoutPage.step2IsUserSignedIn()).toBeTruthy();
+  expect(await checkoutPage.step2Fragment.step2IsUserSignedIn()).toBeTruthy();
   //click proceed
-  await checkoutPage.step2ClickProceedToCheckout();
-  await checkoutPage.step3EnterBilling('random', 'line');
-  await checkoutPage.step3clickProceedToCheckout();
-  await checkoutPage.step4SelectPayment(paymentMethod);
-  await checkoutPage.step4EnterCreditCardInfo(creditCardInfo.number, creditCardInfo.expDate, creditCardInfo.cvv, creditCardInfo.cardholderName);
-  expect(await checkoutPage.returnStatusMessage()).toContain('Payment was successful');
+  await checkoutPage.step2Fragment.step2ClickProceedToCheckout();
+  await checkoutPage.step3Fragment.step3EnterBilling('random', 'line');
+  await checkoutPage.step3Fragment.step3clickProceedToCheckout();
+  await checkoutPage.step4Fragment.step4SelectPayment(paymentMethod);
+  await checkoutPage.step4Fragment.step4EnterCreditCardInfo(creditCardInfo.number, creditCardInfo.expDate, creditCardInfo.cvv, creditCardInfo.cardholderName);
+  expect(await checkoutPage.step4Fragment.returnStatusMessage()).toContain('Payment was successful');
 
 });

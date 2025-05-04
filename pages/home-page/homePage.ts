@@ -1,18 +1,17 @@
-import {Page} from "@playwright/test";
+import {Locator} from "@playwright/test";
+import {BasePage} from "../basePage";
+import {SideBarFragment} from "./fragments/sideBarFragment";
+import {HeaderFragment} from "./fragments/headerFragment";
 
-export  class HomePage{
-    page: Page;
-    productCardByName;
-    productPriceByNumber;
+export  class HomePage extends BasePage{
+    productCardByName:string = 'h5[data-test="product-name"]' ;
+    productPriceByNumber:Locator = this.page.getByTestId('product-price');
 
-    constructor(page: Page) {
-        this.page = page;
-        this.productCardByName =  'h5[data-test="product-name"]';
-        this.productPriceByNumber = this.page.getByTestId('product-price');
-    }
+    sideBarFragment = new SideBarFragment(this.page);
+    headerFragment = new HeaderFragment(this.page);
 
     async clickProductCardByName(productName: string){
-        await this.page.locator(this.productCardByName, { hasText: productName }).click();
+        await this.page.locator('h5[data-test="product-name"]', { hasText: productName }).click();
     }
 
     async clickProductCardByNumber(number: number){
@@ -20,11 +19,11 @@ export  class HomePage{
     }
 
     async getProductNameByNumber(number:number){
-        return this.page.locator(this.productCardByName).nth(number).innerText();
+        return await this.page.locator(this.productCardByName).nth(number).innerText();
     }
 
     async getProductPriceByNumber(number:number) {
-        return this.productPriceByNumber.nth(number).innerText();
+        return await this.productPriceByNumber.nth(number).innerText();
     }
 
     async getAllProductNames(): Promise<string[]> {
