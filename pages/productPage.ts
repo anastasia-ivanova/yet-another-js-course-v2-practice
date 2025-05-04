@@ -8,7 +8,6 @@ export  class ProductPage{
     addToFavButtonLocator: Locator;
     alertLocator: Locator;
     goToCartButtonLocator: Locator;
-    cartIconLocator: Locator;
 
 
     constructor(page: Page) {
@@ -18,8 +17,8 @@ export  class ProductPage{
         this.addToCartButtonLocator = this.page.locator('[data-test="add-to-cart"]');
         this.addToFavButtonLocator = this.page.locator('[data-test="add-to-favorites"]');
         this.alertLocator = this.page.getByRole('alert', { name: 'Product added to shopping cart.' });
-        this.goToCartButtonLocator= this.page.locator('[data-test="nav-cart"]');
-        this.cartIconLocator = this.page.locator('[data-test="nav-cart"]');
+        this.goToCartButtonLocator= this.page.getByTestId("nav-cart");
+
     }
 
     async clickAddToCart() {

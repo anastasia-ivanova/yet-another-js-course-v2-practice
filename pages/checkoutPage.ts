@@ -1,4 +1,4 @@
-import {Locator, Page} from "@playwright/test";
+import {expect, Locator, Page} from "@playwright/test";
 
 export enum PaymentMethods {
     BankTransfer = 'Bank Transfer',
@@ -38,6 +38,10 @@ export  class CheckoutPage {
         this.step4cvv = this.page.getByTestId('cvv');
         this.step4Name = this.page.getByTestId('card_holder_name');
         this.step4ConfirmButton = this.page.getByTestId('finish');
+    }
+
+    async expectOnCheckoutPage() {
+        await expect(this.page).toHaveURL(/checkout/);
     }
 
     async clickProceedToCheckout():Promise<void>{

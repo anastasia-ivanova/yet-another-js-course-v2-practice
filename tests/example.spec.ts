@@ -44,9 +44,9 @@ test('Test 3: Verify user can add product to cart', async ({ page, homePage, pro
   //Verify alert message text is "Product added to shopping cart".
   await expect(productPage.alertLocator).toHaveText('Product added to shopping cart.');
   //Verify alert disappears in 8 seconds.
-  await expect(productPage.alertLocator).not.toBeVisible({ timeout: 8000 });
+  await expect(productPage.alertLocator).toBeHidden({ timeout: 8000 });
   //Verify cart icon in navigation shows quantity = 1.
-  await expect(productPage.cartIconLocator).toContainText('1');
+  await expect(productPage.goToCartButtonLocator).toContainText('1');
   //Click on the cart icon in the navigation.
   await productPage.goToCart();
   //Verify URL is https://practicesoftwaretesting.com/checkout.
