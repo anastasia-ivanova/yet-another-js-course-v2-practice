@@ -12,10 +12,10 @@ export  class ProductPage{
 
     constructor(page: Page) {
         this.page = page;
-        this.productNameLabel = this.page.locator('[data-test="product-name"]');
-        this.unitPriceLocator = this.page.locator('[data-test="unit-price"]');
-        this.addToCartButtonLocator = this.page.locator('[data-test="add-to-cart"]');
-        this.addToFavButtonLocator = this.page.locator('[data-test="add-to-favorites"]');
+        this.productNameLabel = this.page.getByTestId("product-name");
+        this.unitPriceLocator = this.page.getByTestId("unit-price");
+        this.addToCartButtonLocator = this.page.getByTestId("add-to-cart");
+        this.addToFavButtonLocator = this.page.getByTestId("add-to-favorites");
         this.alertLocator = this.page.getByRole('alert', { name: 'Product added to shopping cart.' });
         this.goToCartButtonLocator= this.page.getByTestId("nav-cart");
 

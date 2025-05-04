@@ -8,8 +8,8 @@ import { baseConfig } from '../config/baseConfig';
 myLoggedInTest('Test 1: Verify login with valid credentials', async ({ loggedInPage }) => {
 
   await expect(loggedInPage).toHaveURL('/account');
-  await expect(loggedInPage.locator('[data-test="page-title"]')).toContainText('My account');
-  await expect(loggedInPage.locator('[data-test="nav-menu"]')).toContainText(baseConfig.USER_NAME);
+  await expect(loggedInPage.getByTestId("page-title")).toContainText('My account');
+  await expect(loggedInPage.getByTestId("nav-menu")).toContainText(baseConfig.USER_NAME);
 });
 
 test('Test 2: Verify user can view product details', async ({page, homePage, productPage }) => {

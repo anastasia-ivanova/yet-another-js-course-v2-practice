@@ -62,7 +62,7 @@ test('Test 5: Verify user can filter products by category', async ({ page, homeP
 
     await page.goto('/');
     await sideBar.applyPowerToolsFilter(filter);
-    await page.waitForResponse(resp => resp.url().includes('/products?category_id=') && resp.status() === 200);
+    await page.waitForResponse(resp => resp.url().includes('/products?between=price,1,100&by_category=') && resp.status() === 200);
     const actualResult = await homePage.getAllProductNames();
 
     expect(actualResult.every(tool => tool.includes(filter))).toBe(true);
