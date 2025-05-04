@@ -32,7 +32,6 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: baseConfig.WEB_URL,
-    headless: !!process.env.CI,
 
     testIdAttribute: 'data-test',
 

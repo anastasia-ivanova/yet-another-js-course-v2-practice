@@ -41,10 +41,6 @@ test('Test 1: Verify login with valid credentials', async ({ page, loggedInAppPa
   await checkoutPage.step3clickProceedToCheckout();
   await checkoutPage.step4SelectPayment(paymentMethod);
   await checkoutPage.step4EnterCreditCardInfo(creditCardInfo.number, creditCardInfo.expDate, creditCardInfo.cvv, creditCardInfo.cardholderName);
-   expect(await checkoutPage.returnStatusMessage()).toContain('Payment was successful');
-
-
-
-
+  expect(await checkoutPage.returnStatusMessage()).toContain('Payment was successful');
 
 });
