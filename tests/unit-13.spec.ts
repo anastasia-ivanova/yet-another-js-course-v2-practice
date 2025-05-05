@@ -18,7 +18,7 @@ test('Unit-13: Test 6: Verify purchasing item with fixtures', async ({ page, log
 
   await homePage.clickProductCardByNumber(0);
 
-  productPage.alertLocator.waitFor({ state: 'hidden' });
+  await productPage.alertLocator.waitFor({ state: 'hidden' });
   await productPage.clickAddToCart();
   await productPage.goToCart();
 
