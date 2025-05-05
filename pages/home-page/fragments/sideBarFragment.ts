@@ -1,5 +1,5 @@
-import {Locator, Page} from "@playwright/test";
-import {baseFragment} from "../../baseFragment";
+import {Locator} from "@playwright/test";
+import {BaseFragment} from "../../baseFragment";
 
 export enum SortingOption {
     NameAsc = 'name,asc',
@@ -33,7 +33,7 @@ export enum OtherTools {
     Fasteners = 'Fasteners',
 }
 
-export  class SideBarFragment extends baseFragment{
+export  class SideBarFragment extends BaseFragment{
     private readonly root: Locator = this.page.getByTestId('filters');
     readonly sortDropdownLocator: Locator = this.root.getByTestId('sort');
 

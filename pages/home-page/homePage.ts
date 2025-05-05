@@ -11,7 +11,7 @@ export  class HomePage extends BasePage{
     headerFragment = new HeaderFragment(this.page);
 
     async clickProductCardByName(productName: string){
-        await this.page.locator('h5[data-test="product-name"]', { hasText: productName }).click();
+        await this.page.locator(this.productCardByName, { hasText: productName }).click();
     }
 
     async clickProductCardByNumber(number: number){

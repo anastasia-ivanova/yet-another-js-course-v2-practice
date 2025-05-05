@@ -1,17 +1,17 @@
 import {Locator} from "@playwright/test";
-import {baseFragment} from "../../baseFragment";
+import {BaseFragment} from "../../baseFragment";
 
 
-export class CheckOutStep3Fragment  extends baseFragment {
+export class CheckOutStep3Fragment  extends BaseFragment {
 
     step3proceedButtonLocator: Locator = this.page.getByTestId('proceed-3');
 
 
-    async step3clickProceedToCheckout(): Promise<void> {
+    async clickProceedToCheckout(): Promise<void> {
         await this.step3proceedButtonLocator.click();
     }
 
-    async step3EnterBilling(state: string, postCode: string) {
+    async enterBilling(state: string, postCode: string): Promise<void> {
         await this.page.getByTestId('state').fill(state);
         await this.page.getByTestId('postal_code').fill(postCode);
     }

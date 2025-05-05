@@ -31,13 +31,13 @@ test('Unit-13: Test 6: Verify purchasing item with fixtures', async ({ page, log
   await expect(checkoutPage.productPriceInCartLocator).toContainText(productInTest.productPrice);
   await checkoutPage.clickProceedToCheckout();
   //verify if user signed in
-  await checkoutPage.step2Fragment.step2CheckIfUserSignedIn();
+  await checkoutPage.step2Fragment.checkIfUserSignedIn();
   //click proceed
-  await checkoutPage.step2Fragment.step2ClickProceedToCheckout();
-  await checkoutPage.step3Fragment.step3EnterBilling('random', 'line');
-  await checkoutPage.step3Fragment.step3clickProceedToCheckout();
-  await checkoutPage.step4Fragment.step4SelectPayment(paymentMethod);
-  await checkoutPage.step4Fragment.step4EnterCreditCardInfo(creditCardInfo.number, creditCardInfo.expDate, creditCardInfo.cvv, creditCardInfo.cardholderName);
+  await checkoutPage.step2Fragment.clickProceedToCheckout();
+  await checkoutPage.step3Fragment.enterBilling('random', 'line');
+  await checkoutPage.step3Fragment.clickProceedToCheckout();
+  await checkoutPage.step4Fragment.selectPayment(paymentMethod);
+  await checkoutPage.step4Fragment.enterCreditCardInfo(creditCardInfo.number, creditCardInfo.expDate, creditCardInfo.cvv, creditCardInfo.cardholderName);
   expect(await checkoutPage.step4Fragment.returnStatusMessage()).toContain('Payment was successful');
 
 });

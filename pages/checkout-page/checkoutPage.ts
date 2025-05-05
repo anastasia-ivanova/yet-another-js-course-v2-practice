@@ -25,10 +25,6 @@ export  class CheckoutPage extends BasePage{
     step3Fragment = new CheckOutStep3Fragment(this.page);
     step4Fragment = new CheckOutStep4Fragment(this.page);
 
-    async expectOnCheckoutPage() {
-        await expect(this.page).toHaveURL(/checkout/);
-    }
-
     async clickProceedToCheckout():Promise<void>{
        await this.proceedButtonLocator.click();
     }

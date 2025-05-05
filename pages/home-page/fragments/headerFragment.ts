@@ -1,6 +1,6 @@
-import {baseFragment} from "../../baseFragment";
+import {BaseFragment} from "../../baseFragment";
 
-export class HeaderFragment  extends baseFragment {
+export class HeaderFragment  extends BaseFragment {
     readonly signIn = this.page.getByTestId('nav-sign-in')
     readonly logo = this.page.locator('a[title="Practice Software Testing - Toolshop"]');
 

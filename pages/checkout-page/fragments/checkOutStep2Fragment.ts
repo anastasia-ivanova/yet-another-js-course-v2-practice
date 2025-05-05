@@ -1,15 +1,15 @@
-import {baseFragment} from "../../baseFragment";
+import {BaseFragment} from "../../baseFragment";
 import {expect, Locator} from "@playwright/test";
 
-export class CheckOutStep2Fragment  extends baseFragment {
-    readonly step2proceedButtonLocator: Locator = this.page.getByTestId('proceed-2');
-    readonly youaresignedIntext = this.page.locator('p.ng-star-inserted');
+export class CheckOutStep2Fragment  extends BaseFragment {
+    readonly step2ProceedButtonLocator: Locator = this.page.getByTestId('proceed-2');
+    readonly youAreSignedIntext = this.page.locator('p.ng-star-inserted');
 
-    async step2ClickProceedToCheckout():Promise<void> {
+    async clickProceedToCheckout():Promise<void> {
         await this.step2proceedButtonLocator.click();
     }
 
-    async step2CheckIfUserSignedIn(){
+    async checkIfUserSignedIn(){
         await expect(this.youaresignedIntext).toHaveText('you are already logged in.');
     }
 }
