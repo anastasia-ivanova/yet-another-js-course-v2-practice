@@ -36,9 +36,9 @@ test('Test 3: Verify user can add product to cart', async ({ page, homePage, pro
   //Verify URL contains https://practicesoftwaretesting.com/product.
   await expect(page).toHaveURL(/\/product.*/);
   //Verify product name is "Slip Joint Pliers".
-  await expect(productPage.getProductName()).toContain(testProduct);
+  expect( await productPage.getProductName()).toContain(testProduct);
   // Verify product price is 9.17.
-  await expect( productPage.getProductPrice()).toContain('9.17');
+  expect(await productPage.getProductPrice()).toContain('9.17');
   //Click "Add to Cart" button.
   await productPage.clickAddToCart();
   //Verify alert message is visible
