@@ -11,8 +11,8 @@ export class CheckOutStep3Fragment  extends baseFragment {
         await this.step3proceedButtonLocator.click();
     }
 
-    async step3EnterBilling(anyVal1: string, anyVal2: string) {
-        await this.page.getByTestId('state').fill(anyVal1);
-        await this.page.getByTestId('postal_code').fill(anyVal2);
+    async step3EnterBilling(state: string, postCode: string) {
+        await this.page.getByTestId('state').fill(state);
+        await this.page.getByTestId('postal_code').fill(postCode);
     }
 }

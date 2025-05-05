@@ -12,11 +12,11 @@ export  class ProductPage extends BasePage{
 
 
     async getProductName(): Promise<string>{
-        return  await this.productNameLabel.innerText();
+        return this.productNameLabel.innerText();
     }
 
     async getProductPrice(): Promise<string>{
-        return await this.unitPriceLocator.innerText();
+        return this.unitPriceLocator.innerText();
     }
 
     async clickAddToCart() {

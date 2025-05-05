@@ -39,10 +39,13 @@ export  class SideBarFragment extends baseFragment{
 
     async selectSortingOption(sortingOption: SortingOption){
         await this.sortDropdownLocator.selectOption(sortingOption);
+        await this.page.waitForResponse(resp => resp.url().includes('/products?sort=') && resp.status() === 200 )
     }
 
     async applyPowerToolsFilter(filterOption: PowerTools){
         await this.root.getByRole('checkbox', { name: filterOption }).check();
+        await this.page.waitForResponse(resp => resp.url().includes('/products?between=price,1,100&by_category=') && resp.status() === 200);
+
     }
 
 

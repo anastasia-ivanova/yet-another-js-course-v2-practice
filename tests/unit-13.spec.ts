@@ -1,16 +1,12 @@
 import { expect } from '@playwright/test';
 import {test} from '../fixtures/allAppFixture';
 import { PaymentMethods } from '../pages/checkout-page/checkoutPage';
+import {creditCardInfo} from "../test-data/creditCardInfo";
+
 
 
 
 test('Unit-13: Test 6: Verify purchasing item with fixtures', async ({ page, loggedInAppPage, homePage, productPage, checkoutPage}) => {
-  const creditCardInfo = {
-    number: '1111-1111-1111-1111',
-    expDate: '08/2025',
-    cvv: '111',
-    cardholderName: 'test name',
-  };
   const paymentMethod = PaymentMethods.CreditCard;
 
   await homePage.headerFragment.clickMainLogo();
@@ -35,7 +31,7 @@ test('Unit-13: Test 6: Verify purchasing item with fixtures', async ({ page, log
   await expect(checkoutPage.productPriceInCartLocator).toContainText(productInTest.productPrice);
   await checkoutPage.clickProceedToCheckout();
   //verify if user signed in
-  expect(await checkoutPage.step2Fragment.step2IsUserSignedIn()).toBeTruthy();
+  await checkoutPage.step2Fragment.step2CheckIfUserSignedIn();
   //click proceed
   await checkoutPage.step2Fragment.step2ClickProceedToCheckout();
   await checkoutPage.step3Fragment.step3EnterBilling('random', 'line');

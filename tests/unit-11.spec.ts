@@ -21,7 +21,6 @@ for (const { option, description, sortFn } of sortingCasesName) {
         await homePage.goto();
 
         await homePage.sideBarFragment.selectSortingOption(option);
-        await  page.waitForResponse(resp => resp.url().includes('/products?sort=name,') && resp.status() === 200 )
         const actualResult = await homePage.getAllProductNames();
         const expectedResult = [... actualResult].sort(sortFn);
 
@@ -48,7 +47,6 @@ for (const { option, description, sortFn } of sortingCasesPrice) {
         await homePage.goto();
 
         await homePage.sideBarFragment.selectSortingOption(option);
-        await  page.waitForResponse(resp => resp.url().includes('/products?sort=price') && resp.status() === 200 )
         const actualResult = await homePage.getAllProductCleanPrices();
         const expectedResult = [... actualResult].sort(sortFn);
 
@@ -61,7 +59,6 @@ test('Test 5: Verify user can filter products by category', async ({ page, homeP
 
     await homePage.goto();
     await homePage.sideBarFragment.applyPowerToolsFilter(filter);
-    await page.waitForResponse(resp => resp.url().includes('/products?between=price,1,100&by_category=') && resp.status() === 200);
     const actualResult = await homePage.getAllProductNames();
 
     expect(actualResult.every(tool => tool.includes(filter))).toBe(true);

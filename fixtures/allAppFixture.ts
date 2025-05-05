@@ -32,7 +32,7 @@ export const test = baseTest.extend<MyFixtures>({
   loggedInAppPage: async ({ page }, use) => {
     const loggedInAppPage = new LoginPage(page);
     await page.goto('/auth/login');
-    await loggedInAppPage.loginWithUser();
+    await loggedInAppPage.loginAs();
     await use(loggedInAppPage)
   }
 });

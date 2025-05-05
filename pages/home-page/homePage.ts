@@ -19,11 +19,11 @@ export  class HomePage extends BasePage{
     }
 
     async getProductNameByNumber(number:number){
-        return await this.page.locator(this.productCardByName).nth(number).innerText();
+        return this.page.locator(this.productCardByName).nth(number).innerText();
     }
 
     async getProductPriceByNumber(number:number) {
-        return await this.productPriceByNumber.nth(number).innerText();
+        return  this.productPriceByNumber.nth(number).innerText();
     }
 
     async getAllProductNames(): Promise<string[]> {
