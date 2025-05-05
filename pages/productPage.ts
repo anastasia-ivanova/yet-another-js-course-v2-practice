@@ -24,6 +24,7 @@ export  class ProductPage extends BasePage{
     }
 
     async goToCart() {
+        await this.goToCartButtonLocator.waitFor();
         await this.goToCartButtonLocator.click();
     }
 }

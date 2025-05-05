@@ -2,6 +2,7 @@ import { expect } from '@playwright/test';
 import {test} from '../fixtures/allAppFixture';
 import { PaymentMethods } from '../pages/checkout-page/checkoutPage';
 import {creditCardInfo} from "../test-data/creditCardInfo";
+import {baseConfig} from "../config/baseConfig";
 
 
 
@@ -18,7 +19,6 @@ test('Unit-13: Test 6: Verify purchasing item with fixtures', async ({ page, log
 
   await homePage.clickProductCardByNumber(0);
 
-  await productPage.alertLocator.waitFor({ state: 'hidden' });
   await productPage.clickAddToCart();
   await productPage.goToCart();
 
@@ -31,7 +31,7 @@ test('Unit-13: Test 6: Verify purchasing item with fixtures', async ({ page, log
   await expect(checkoutPage.productPriceInCartLocator).toContainText(productInTest.productPrice);
   await checkoutPage.clickProceedToCheckout();
   //verify if user signed in
-  await checkoutPage.step2Fragment.checkIfUserSignedIn();
+  await checkoutPage.step2Fragment.checkIfUserSignedIn(baseConfig.USER_NAME);
   //click proceed
   await checkoutPage.step2Fragment.clickProceedToCheckout();
   await checkoutPage.step3Fragment.enterBilling('random', 'line');
