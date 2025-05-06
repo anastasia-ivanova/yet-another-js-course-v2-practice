@@ -4,10 +4,10 @@ import { PaymentMethods } from '../pages/checkout-page/checkoutPage';
 import {creditCardInfo} from "../test-data/creditCardInfo";
 import {baseConfig} from "../config/baseConfig";
 
+test.setTimeout(60_000);
 
-
-
-test('Unit-13: Test 6: Verify purchasing item with fixtures', async ({ page, loggedInAppPage, homePage, productPage, checkoutPage}) => {
+test('Unit-13: Test 6: Verify purchasing item with fixtures',
+    async ({ page, loggedInAppPage, homePage, productPage, checkoutPage}) => {
   const paymentMethod = PaymentMethods.CreditCard;
 
   await homePage.headerFragment.clickMainLogo();

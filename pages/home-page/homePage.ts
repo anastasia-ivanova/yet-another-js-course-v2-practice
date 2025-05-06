@@ -14,15 +14,15 @@ export  class HomePage extends BasePage{
         await this.page.locator(this.productCardByName, { hasText: productName }).click();
     }
 
-    async clickProductCardByNumber(number: number){
+    async clickProductCardByNumber(number: number): Promise<void>{
         await this.page.locator(this.productCardByName).nth(number).click();
     }
 
-    async getProductNameByNumber(number:number){
+    async getProductNameByNumber(number:number): Promise<string>{
         return this.page.locator(this.productCardByName).nth(number).innerText();
     }
 
-    async getProductPriceByNumber(number:number) {
+    async getProductPriceByNumber(number:number): Promise<string> {
         return  this.productPriceByNumber.nth(number).innerText();
     }
 

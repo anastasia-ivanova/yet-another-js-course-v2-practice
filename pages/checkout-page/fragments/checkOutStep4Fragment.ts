@@ -24,6 +24,6 @@ export class CheckOutStep4Fragment  extends BaseFragment {
     }
 
     async returnStatusMessage():Promise<string>{
-        return await this.page.getByTestId('payment-success-message').innerText();
+        return this.page.getByTestId('payment-success-message').innerText();
     }
 }

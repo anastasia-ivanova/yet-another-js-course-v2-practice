@@ -19,11 +19,12 @@ export  class ProductPage extends BasePage{
         return this.unitPriceLocator.innerText();
     }
 
-    async clickAddToCart() {
+    async clickAddToCart(): Promise<void> {
         await this.addToCartButtonLocator.click();
     }
 
-    async goToCart() {
+    async goToCart(): Promise<void> {
+        await this.alertLocator.waitFor({ state: 'hidden', timeout: 10000 });
         await this.goToCartButtonLocator.waitFor();
         await this.goToCartButtonLocator.click();
     }
