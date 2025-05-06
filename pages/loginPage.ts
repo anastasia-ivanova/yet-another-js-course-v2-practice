@@ -1,19 +1,20 @@
-import {Locator, Page} from "@playwright/test";
+import {expect, Locator} from "@playwright/test";
 import { baseConfig } from '../config/baseConfig';
 import {BasePage} from "./basePage";
 import {HeaderFragment} from "./home-page/fragments/headerFragment";
 
+
 export  class LoginPage extends BasePage{
-    emailLocator: Locator = this.page.getByTestId("email");
-    passwordFieldLocator: Locator = this.page.getByTestId("password");
-    submitButtonLocator: Locator = this.page.getByTestId("login-submit");
-    headerFragment = new HeaderFragment(this.page);
+    readonly emailInput: Locator = this.page.getByTestId("email");
+    readonly passwordInput: Locator = this.page.getByTestId("password");
+    readonly submitButton: Locator = this.page.getByTestId("login-submit");
+    readonly headerFragment = new HeaderFragment(this.page);
 
-     async loginAs(username = baseConfig.USER_EMAIL, password = baseConfig.USER_PASSWORD): Promise<void> {
-         await this.emailLocator.fill(username);
-         await this.passwordFieldLocator.fill(password);
-         await this.submitButtonLocator.click();
+     async loginAs(username: string = baseConfig.USER_EMAIL, password: string = baseConfig.USER_PASSWORD, nameOfAUser: string = baseConfig.USER_NAME): Promise<void> {
+         await this.emailInput.fill(username);
+         await this.passwordInput.fill(password);
+         await this.submitButton.click();
 
-         await this.headerFragment.signedInDropDown.waitFor();
+         await expect(this.headerFragment.signedInDropDown).toContainText(nameOfAUser);
      }
  }

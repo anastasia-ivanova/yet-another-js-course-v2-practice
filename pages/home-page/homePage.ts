@@ -5,7 +5,7 @@ import {HeaderFragment} from "./fragments/headerFragment";
 
 export  class HomePage extends BasePage{
     productCardByName:string = 'h5[data-test="product-name"]' ;
-    productPriceByNumber:Locator = this.page.getByTestId('product-price');
+    productPriceLocator:Locator = this.page.getByTestId('product-price');
 
     sideBarFragment = new SideBarFragment(this.page);
     headerFragment = new HeaderFragment(this.page);
@@ -23,11 +23,11 @@ export  class HomePage extends BasePage{
     }
 
     async getProductPriceByNumber(number:number): Promise<string> {
-        return  this.productPriceByNumber.nth(number).innerText();
+        return  this.productPriceLocator.nth(number).innerText();
     }
 
     async getAllProductNames(): Promise<string[]> {
-        return await this.page.locator('h5[data-test="product-name"]' ).allTextContents();
+        return this.page.locator('h5[data-test="product-name"]' ).allTextContents();
     }
 
     async getAllProductCleanPrices(): Promise<number[]> {
