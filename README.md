@@ -11,19 +11,29 @@ Before you begin, ensure you have met the following requirements:
 - Playwright
   - to install Playwright use:
   ```bash
-  npm init playwright@latest
+  npm install
+  npx playwright install
+  ```
 
+## Setup
+
+```bash
+  https://github.com/anastasia-ivanova/yet-another-js-course-v2-practice.git
+```
 
 ## Running Tests
-Install dependencies: 
-  ```bash
-   npm install
-   ```
-Run all tests:
-   ```bash
- npx playwright test
- ```
+
+- All tests: `npx playwright test`
+
+- Specific test: `npx playwright test tests/example.spec.ts`
+
+- Headed mode: `npx playwright test --headed`
+
+- Debug mode: `npx playwright test --debug`
+
+- Specific browser: `npx playwright test --project=chromium`
+
 View the HTML report (after test run): 
-   ```bash
+```bash
 npx playwright show-report
 ```

@@ -1,25 +1,22 @@
-import {Locator, Page} from "@playwright/test";
+import {Locator} from "@playwright/test";
+import {BasePage} from "./basePage";
 
-export  class ProductPage{
-    page: Page;
-    productNameLabel: Locator;
-    unitPriceLocator: Locator;
-    addToCartButtonLocator: Locator;
-    addToFavButtonLocator: Locator;
-    alertLocator: Locator;
-    goToCartButtonLocator: Locator;
-    cartIconLocator: Locator;
+export  class ProductPage extends BasePage{
+
+    productNameLabel: Locator = this.page.getByTestId("product-name");
+    unitPriceLocator: Locator = this.page.getByTestId("unit-price");
+    addToCartButtonLocator: Locator = this.page.getByTestId("add-to-cart");
+    addToFavButtonLocator: Locator = this.page.getByTestId("add-to-favorites");
+    alertLocator: Locator = this.page.getByRole('alert', { name: 'Product added to shopping cart.' });
+    goToCartButtonLocator: Locator = this.page.getByTestId("nav-cart");
 
 
-    constructor(page: Page) {
-        this.page = page;
-        this.productNameLabel = this.page.locator('[data-test="product-name"]');
-        this.unitPriceLocator = this.page.locator('[data-test="unit-price"]');
-        this.addToCartButtonLocator = this.page.locator('[data-test="add-to-cart"]');
-        this.addToFavButtonLocator = this.page.locator('[data-test="add-to-favorites"]');
-        this.alertLocator = this.page.getByRole('alert', { name: 'Product added to shopping cart.' });
-        this.goToCartButtonLocator= this.page.locator('[data-test="nav-cart"]');
-        this.cartIconLocator = this.page.locator('[data-test="nav-cart"]');
+    async getProductName(): Promise<string>{
+        return this.productNameLabel.innerText();
+    }
+
+    async getProductPrice(): Promise<string>{
+        return this.unitPriceLocator.innerText();
     }
 
     async clickAddToCart() {
@@ -27,6 +24,7 @@ export  class ProductPage{
     }
 
     async goToCart() {
+        await this.goToCartButtonLocator.waitFor();
         await this.goToCartButtonLocator.click();
     }
 }

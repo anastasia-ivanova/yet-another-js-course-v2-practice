@@ -1,4 +1,5 @@
-import {Locator, Page} from "@playwright/test";
+import {Locator} from "@playwright/test";
+import {BaseFragment} from "../../baseFragment";
 
 export enum SortingOption {
     NameAsc = 'name,asc',
@@ -32,25 +33,19 @@ export enum OtherTools {
     Fasteners = 'Fasteners',
 }
 
-export  class SideBar {
-    readonly page: Page;
-    private readonly root: Locator;
-    readonly sortDropdownLocator: Locator;
-    readonly filterCheckBoxByName: string;
-
-    constructor(page: Page) {
-        this.page = page;
-        this.root = this.page.getByTestId('filters');
-        this.sortDropdownLocator = this.root.getByTestId('sort');
-        this.filterCheckBoxByName = 'name="category_id"';
-    };
+export  class SideBarFragment extends BaseFragment{
+    private readonly root: Locator = this.page.getByTestId('filters');
+    readonly sortDropdownLocator: Locator = this.root.getByTestId('sort');
 
     async selectSortingOption(sortingOption: SortingOption){
         await this.sortDropdownLocator.selectOption(sortingOption);
+        await this.page.waitForResponse(resp => resp.url().includes('/products?sort=') && resp.status() === 200 )
     }
 
     async applyPowerToolsFilter(filterOption: PowerTools){
         await this.root.getByRole('checkbox', { name: filterOption }).check();
+        await this.page.waitForResponse(resp => resp.url().includes('/products?between=price,1,100&by_category=') && resp.status() === 200);
+
     }
 
 

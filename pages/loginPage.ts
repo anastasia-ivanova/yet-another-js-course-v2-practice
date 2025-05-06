@@ -1,20 +1,19 @@
 import {Locator, Page} from "@playwright/test";
+import { baseConfig } from '../config/baseConfig';
+import {BasePage} from "./basePage";
+import {HeaderFragment} from "./home-page/fragments/headerFragment";
 
-export  class LoginPage{
-    page: Page;
-    emailLocator: Locator;
-    passwordFieldLocator: Locator;
-    submitButtonLocator: Locator;
-    constructor(page: Page) {
-        this.page = page;
-        this.emailLocator = this.page.locator('[data-test="email"]');
-        this.passwordFieldLocator = this.page.locator('[data-test="password"]');
-        this.submitButtonLocator = this.page.locator('[data-test="login-submit"]');
-    }
+export  class LoginPage extends BasePage{
+    emailLocator: Locator = this.page.getByTestId("email");
+    passwordFieldLocator: Locator = this.page.getByTestId("password");
+    submitButtonLocator: Locator = this.page.getByTestId("login-submit");
+    headerFragment = new HeaderFragment(this.page);
 
-     async login(username: string, password: string): Promise<void> {
+     async loginAs(username = baseConfig.USER_EMAIL, password = baseConfig.USER_PASSWORD): Promise<void> {
          await this.emailLocator.fill(username);
          await this.passwordFieldLocator.fill(password);
          await this.submitButtonLocator.click();
+
+         await this.headerFragment.signedInDropDown.waitFor();
      }
  }
