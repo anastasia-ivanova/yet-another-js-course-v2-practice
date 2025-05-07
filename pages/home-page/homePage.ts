@@ -10,7 +10,11 @@ export  class HomePage extends BasePage{
     sideBarFragment = new SideBarFragment(this.page);
     headerFragment = new HeaderFragment(this.page);
 
-    async clickProductCardByName(productName: string){
+    async navigateTo(): Promise<void>{
+        await this.page.goto('/');
+    }
+
+    async clickProductCardByName(productName: string): Promise<void>{
         await this.page.locator(this.productCardByName, { hasText: productName }).click();
     }
 
@@ -40,6 +44,5 @@ export  class HomePage extends BasePage{
         }
         return cleanPrices;
     }
-
 
 }

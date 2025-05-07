@@ -5,9 +5,9 @@ import {HeaderFragment} from "./home-page/fragments/headerFragment";
 
 
 export  class LoginPage extends BasePage{
-    readonly emailInput: Locator = this.page.getByTestId("email");
-    readonly passwordInput: Locator = this.page.getByTestId("password");
-    readonly submitButton: Locator = this.page.getByTestId("login-submit");
+    readonly emailInput: Locator = this.page.getByTestId('email');
+    readonly passwordInput: Locator = this.page.getByTestId('password');
+    readonly submitButton: Locator = this.page.getByTestId('login-submit');
     readonly headerFragment = new HeaderFragment(this.page);
 
      async loginAs(username: string = baseConfig.USER_EMAIL, password: string = baseConfig.USER_PASSWORD, nameOfAUser: string = baseConfig.USER_NAME): Promise<void> {

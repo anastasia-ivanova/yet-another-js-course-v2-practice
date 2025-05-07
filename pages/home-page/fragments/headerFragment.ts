@@ -10,9 +10,4 @@ export class HeaderFragment  extends BaseFragment {
         await this.signIn.click();
     }
 
-    async clickMainLogo(): Promise<void> {
-        await this.logo.click();
-        await this.page.locator('p.lead').waitFor();
-
-    }
 }
