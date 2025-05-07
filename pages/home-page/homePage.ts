@@ -5,29 +5,33 @@ import {HeaderFragment} from "./fragments/headerFragment";
 
 export  class HomePage extends BasePage{
     productCardByName:string = 'h5[data-test="product-name"]' ;
-    productPriceByNumber:Locator = this.page.getByTestId('product-price');
+    productPriceLocator:Locator = this.page.getByTestId('product-price');
 
     sideBarFragment = new SideBarFragment(this.page);
     headerFragment = new HeaderFragment(this.page);
 
-    async clickProductCardByName(productName: string){
+    async navigateTo(): Promise<void>{
+        await this.page.goto('/');
+    }
+
+    async clickProductCardByName(productName: string): Promise<void>{
         await this.page.locator(this.productCardByName, { hasText: productName }).click();
     }
 
-    async clickProductCardByNumber(number: number){
+    async clickProductCardByNumber(number: number): Promise<void>{
         await this.page.locator(this.productCardByName).nth(number).click();
     }
 
-    async getProductNameByNumber(number:number){
+    async getProductNameByNumber(number:number): Promise<string>{
         return this.page.locator(this.productCardByName).nth(number).innerText();
     }
 
-    async getProductPriceByNumber(number:number) {
-        return  this.productPriceByNumber.nth(number).innerText();
+    async getProductPriceByNumber(number:number): Promise<string> {
+        return  this.productPriceLocator.nth(number).innerText();
     }
 
     async getAllProductNames(): Promise<string[]> {
-        return await this.page.locator('h5[data-test="product-name"]' ).allTextContents();
+        return this.page.locator('h5[data-test="product-name"]' ).allTextContents();
     }
 
     async getAllProductCleanPrices(): Promise<number[]> {
@@ -40,6 +44,5 @@ export  class HomePage extends BasePage{
         }
         return cleanPrices;
     }
-
 
 }

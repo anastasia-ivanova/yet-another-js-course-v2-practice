@@ -9,8 +9,7 @@ export class CheckOutStep2Fragment  extends BaseFragment {
         await this.step2ProceedButtonLocator.click();
     }
 
-    async checkIfUserSignedIn(username:string){
-        const  dd = this.youAreSignedInText.innerText();
+    async checkIfUserSignedIn(username:string):Promise<void> {
         await expect(this.youAreSignedInText).toHaveText(`Hello ${username}, you are already logged in. You can proceed to checkout.`);
     }
 }
