@@ -10,6 +10,10 @@ export  class LoginPage extends BasePage{
     readonly submitButton: Locator = this.page.getByTestId('login-submit');
     readonly headerFragment = new HeaderFragment(this.page);
 
+    async navigateTo(): Promise<void>{
+        await this.page.goto('/auth/login');
+    }
+
      async loginAs(username: string = baseConfig.USER_EMAIL, password: string = baseConfig.USER_PASSWORD, nameOfAUser: string = baseConfig.USER_NAME): Promise<void> {
          await this.emailInput.fill(username);
          await this.passwordInput.fill(password);

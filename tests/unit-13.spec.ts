@@ -1,43 +1,49 @@
 import { expect } from '@playwright/test';
-import {test} from '../fixtures/allAppFixture';
+
 import { PaymentMethods } from '../pages/checkout-page/checkoutPage';
 import {creditCardInfo} from "../test-data/creditCardInfo";
 import {baseConfig} from "../config/baseConfig";
+import {myLoggedInTest} from "../fixtures/loggedinFixture";
+import {join} from "path";
 
-test.setTimeout(70_000);
+myLoggedInTest.setTimeout(70_000);
 
-test('Unit-13: Test 6: Verify purchasing item with fixtures',
-    async ({ page, loggedInAppPage, homePage, productPage, checkoutPage}) => {
+
+const authFile = join(process.cwd(), '/playwright/.auth', 'ui-user.json');
+myLoggedInTest.use({storageState: authFile});
+
+myLoggedInTest('Unit-13: Test 6: Verify purchasing item with fixtures',
+    async ({ app, page}) => {
   const paymentMethod = PaymentMethods.CreditCard;
 
-  await homePage.navigateTo();
+  await app.homePage.navigateTo();
   //save first card info
   const productInTest = {
-    productName:  await homePage.getProductNameByNumber(0),
-    productPrice: await homePage.getProductPriceByNumber(0)
+    productName:  await app.homePage.getProductNameByNumber(0),
+    productPrice: await app.homePage.getProductPriceByNumber(0)
   };
 
-  await homePage.clickProductCardByNumber(0);
+  await app.homePage.clickProductCardByNumber(0);
 
-  await productPage.clickAddToCart();
-  await productPage.goToCart();
+  await app.productPage.clickAddToCart();
+  await app.productPage.goToCart();
 
-  await expect(checkoutPage.productQuantityLocator).toBeVisible();
+  await expect(app.checkoutPage.productQuantityLocator).toBeVisible();
   //Verify the number of products in the cart table equals 1.
-  await expect(checkoutPage.productQuantityLocator).toHaveValue('1');
+  await expect(app.checkoutPage.productQuantityLocator).toHaveValue('1');
   //Verify product title in the cart is "Slip Joint Pliers".
-  await expect(checkoutPage.productTitleInCartLocator).toContainText(productInTest.productName);
+  await expect(app.checkoutPage.productTitleInCartLocator).toContainText(productInTest.productName);
   //Verify product price in the cart is correct
-  await expect(checkoutPage.productPriceInCartLocator).toContainText(productInTest.productPrice);
-  await checkoutPage.clickProceedToCheckout();
+  await expect(app.checkoutPage.productPriceInCartLocator).toContainText(productInTest.productPrice);
+  await app.checkoutPage.clickProceedToCheckout();
   //verify if user signed in
-  await checkoutPage.step2Fragment.checkIfUserSignedIn(baseConfig.USER_NAME);
+  await app.checkoutPage.step2Fragment.checkIfUserSignedIn(baseConfig.USER_NAME);
   //click proceed
-  await checkoutPage.step2Fragment.clickProceedToCheckout();
-  await checkoutPage.step3Fragment.enterBilling('random', 'line');
-  await checkoutPage.step3Fragment.clickProceedToCheckout();
-  await checkoutPage.step4Fragment.selectPayment(paymentMethod);
-  await checkoutPage.step4Fragment.enterCreditCardInfo(creditCardInfo.number, creditCardInfo.expDate, creditCardInfo.cvv, creditCardInfo.cardholderName);
-  expect(await checkoutPage.step4Fragment.returnStatusMessage()).toContain('Payment was successful');
+  await app.checkoutPage.step2Fragment.clickProceedToCheckout();
+  await app.checkoutPage.step3Fragment.enterBilling('random', 'line');
+  await app.checkoutPage.step3Fragment.clickProceedToCheckout();
+  await app.checkoutPage.step4Fragment.selectPayment(paymentMethod);
+  await app.checkoutPage.step4Fragment.enterCreditCardInfo(creditCardInfo.number, creditCardInfo.expDate, creditCardInfo.cvv, creditCardInfo.cardholderName);
+  expect(await app.checkoutPage.step4Fragment.returnStatusMessage()).toContain('Payment was successful');
 
 });
