@@ -4,16 +4,16 @@ import { PaymentMethods } from '../pages/checkout-page/checkoutPage';
 import {creditCardInfo} from "../test-data/creditCardInfo";
 import {baseConfig} from "../config/baseConfig";
 import {myLoggedInTest} from "../fixtures/loggedinFixture";
-import {join} from "path";
+
 
 myLoggedInTest.setTimeout(70_000);
 
 
-const authFile = join(process.cwd(), '/playwright/.auth', 'ui-user.json');
-myLoggedInTest.use({storageState: authFile});
+//const authFile = join(process.cwd(), '/playwright/.auth', 'ui-user.json');
+//myLoggedInTest.use({storageState: authFile});
 
 myLoggedInTest('Unit-13: Test 6: Verify purchasing item with fixtures',
-    async ({ app, page}) => {
+    async ({ app}) => {
   const paymentMethod = PaymentMethods.CreditCard;
 
   await app.homePage.navigateTo();
