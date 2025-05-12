@@ -8,10 +8,6 @@ import {myLoggedInTest} from "../fixtures/loggedinFixture";
 
 myLoggedInTest.setTimeout(70_000);
 
-
-//const authFile = join(process.cwd(), '/playwright/.auth', 'ui-user.json');
-//myLoggedInTest.use({storageState: authFile});
-
 myLoggedInTest('Unit-13: Test 6: Verify purchasing item with fixtures',
     async ({ app}) => {
   const paymentMethod = PaymentMethods.CreditCard;
