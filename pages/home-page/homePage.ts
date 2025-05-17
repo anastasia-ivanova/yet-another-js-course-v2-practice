@@ -5,6 +5,7 @@ import {HeaderFragment} from "./fragments/headerFragment";
 
 export  class HomePage extends BasePage{
     productCardByName:string = 'h5[data-test="product-name"]' ;
+    genericProductNameOnCard = this.page.getByTestId('product-name');
     productPriceLocator:Locator = this.page.getByTestId('product-price');
 
     sideBarFragment = new SideBarFragment(this.page);
