@@ -2,12 +2,11 @@ import { expect } from '@playwright/test';
 import {baseConfig} from "../config/baseConfig";
 import {test} from '../fixtures/loggedOutAllAppFixture';
 
-test('Verify 20 mocked products on the page', async ({ page , app}) => {
+test('Verify 20 mocked products on the page', async ({  app}) => {
     const mockedProducts: any[] = [];
-    await page.route(baseConfig.API_URL + '/products*', async route => {
+    await app.page.route(baseConfig.API_URL + '/products*', async route => {
         const response = await route.fetch();
         const json  = await response.json();
-
 
         const baseProducts = json.data;
 

@@ -5,11 +5,11 @@ import {test} from "../fixtures/loggedOutAllAppFixture";
 
 
 
-myLoggedInTest('Test 1: Verify login with valid credentials', async ({ app, page }) => {
+myLoggedInTest('Test 1: Verify login with valid credentials', async ({ app }) => {
 
   await app.page.goto('/account');
-  await expect(page.getByTestId("page-title")).toContainText('My account');
-  await expect(page.getByTestId("nav-menu")).toContainText(baseConfig.USER_NAME);
+  await expect(app.accountPage.pageTitle).toContainText('My account');
+  await expect(app.accountPage.headerFragment.signedInDropDown).toContainText(baseConfig.USER_NAME);
 });
 
 test('Test 2: Verify user can view product details', async ({app, page}) => {
