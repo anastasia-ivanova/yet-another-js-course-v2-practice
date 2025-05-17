@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 import {baseConfig} from "./config/baseConfig";
-import {join} from "path";
+import path, {join} from "path";
 
 dotenv.config();
 
@@ -46,10 +46,13 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'],
+        //storageState: path.join(process.cwd(), '.auth','user.json'),
       },
+      dependencies: ['setup'],
     },
 
     // {

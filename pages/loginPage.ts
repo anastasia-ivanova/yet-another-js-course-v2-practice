@@ -19,6 +19,11 @@ export  class LoginPage extends BasePage{
          await this.passwordInput.fill(password);
          await this.submitButton.click();
 
+         //new
+         await this.page.locator('[data-test="page-title"]').waitFor({ state: 'visible' });
+
+
          await expect(this.headerFragment.signedInDropDown).toContainText(nameOfAUser);
+
      }
  }

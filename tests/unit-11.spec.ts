@@ -17,7 +17,7 @@ const sortingCasesName = [
 
 
 for (const { option, description, sortFn } of sortingCasesName) {
-    test(`Test  1 & 2: Verify user can perform sorting by name ${description}`, async ({ app, page }) => {
+    test(`Test  1 & 2: Verify user can perform sorting by name ${description}`, async ({ app }) => {
         await app.homePage.goto();
 
         await app.homePage.sideBarFragment.selectSortingOption(option);
@@ -43,7 +43,7 @@ const sortingCasesPrice = [
 
 
 for (const { option, description, sortFn } of sortingCasesPrice) {
-    test(`Test 3 & 4: Verify user can perform sorting by price ${description}`, async ({  page,app }) => {
+    test(`Test 3 & 4: Verify user can perform sorting by price ${description}`, async ({  app }) => {
         await app.homePage.goto();
 
         await app.homePage.sideBarFragment.selectSortingOption(option);
@@ -54,7 +54,7 @@ for (const { option, description, sortFn } of sortingCasesPrice) {
     });
 }
 
-test('Test 5: Verify user can filter products by category', async ({ page, app }) => {
+test('Test 5: Verify user can filter products by category', async ({ app }) => {
     const filter: PowerTools = PowerTools.Sander;
 
     await app.homePage.goto();

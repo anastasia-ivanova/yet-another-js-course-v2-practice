@@ -20,7 +20,7 @@ test('Verify 20 mocked products on the page', async ({ page , app}) => {
         json.data = mockedProducts;
         await route.fulfill({response, json});
     });
-    await page.goto(baseConfig.WEB_URL);
+    await app.homePage.goto();
 
 
     await expect(app.homePage.genericProductNameOnCard).toHaveCount(20);
