@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import {test} from '../fixtures/allAppFixture';
+import {test} from '../fixtures/loggedOutAllAppFixture';
 import { PowerTools, SortingOption } from '../pages/home-page/fragments/sideBarFragment';
 
 const sortingCasesName = [
@@ -17,11 +17,11 @@ const sortingCasesName = [
 
 
 for (const { option, description, sortFn } of sortingCasesName) {
-    test(`Test  1 & 2: Verify user can perform sorting by name ${description}`, async ({ page, homePage }) => {
-        await homePage.goto();
+    test(`Test  1 & 2: Verify user can perform sorting by name ${description}`, async ({ app }) => {
+        await app.homePage.goto();
 
-        await homePage.sideBarFragment.selectSortingOption(option);
-        const actualResult = await homePage.getAllProductNames();
+        await app.homePage.sideBarFragment.selectSortingOption(option);
+        const actualResult = await app.homePage.getAllProductNames();
         const expectedResult = [... actualResult].sort(sortFn);
 
         expect(actualResult).toEqual(expectedResult);
@@ -43,23 +43,23 @@ const sortingCasesPrice = [
 
 
 for (const { option, description, sortFn } of sortingCasesPrice) {
-    test(`Test 3 & 4: Verify user can perform sorting by price ${description}`, async ({  page, homePage }) => {
-        await homePage.goto();
+    test(`Test 3 & 4: Verify user can perform sorting by price ${description}`, async ({  app }) => {
+        await app.homePage.goto();
 
-        await homePage.sideBarFragment.selectSortingOption(option);
-        const actualResult = await homePage.getAllProductCleanPrices();
+        await app.homePage.sideBarFragment.selectSortingOption(option);
+        const actualResult = await app.homePage.getAllProductCleanPrices();
         const expectedResult = [... actualResult].sort(sortFn);
 
         expect(actualResult).toEqual(expectedResult);
     });
 }
 
-test('Test 5: Verify user can filter products by category', async ({ page, homePage }) => {
+test('Test 5: Verify user can filter products by category', async ({ app }) => {
     const filter: PowerTools = PowerTools.Sander;
 
-    await homePage.goto();
-    await homePage.sideBarFragment.applyPowerToolsFilter(filter);
-    const actualResult = await homePage.getAllProductNames();
+    await app.homePage.goto();
+    await app.homePage.sideBarFragment.applyPowerToolsFilter(filter);
+    const actualResult = await app.homePage.getAllProductNames();
 
     expect(actualResult.every(tool => tool.includes(filter))).toBe(true);
 });
